@@ -1,0 +1,64 @@
+/* ==================== RESET ==================== */
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ==================== BODY ==================== */
+
+body {
+    background-color: #DDD;
+}
+
+
+/* ==================== SCORE ==================== */
+
+#score {
+    position: absolute;
+    right: 15%;
+    top: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+/* ==================== BUTTON GAME ==================== */
+
+button {
+    display: block;
+    margin: 1rem auto;
+    width: 6rem;
+    height: 2.5rem;
+    background-color: #fff;
+    border: 2px solid;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* ==================== CANVAS ==================== */
+
+canvas{
+    display: block;
+    margin: 0 auto;
+    border: 1rem solid;
+    background-color: #fff;
+    width: 70%;
+}
+
+
+/* ==================== BUTTONS ARROWS ==================== */
+
+div {
+    display: flex;
+    margin: 0 auto;
+    width: 20rem;
+}
+
+#arrowUp {
+    margin-top: 2rem;
+    margin-bottom: 0px;
+}

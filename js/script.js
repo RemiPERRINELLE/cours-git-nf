@@ -1,6 +1,6 @@
-window.onload = function(){	
-	let canvasWidth = 900;
-	let canvasHeight = 600;
+window.onload = function(){
+	canvasWidth = 900;
+	canvasHeight = 450;
 	let blockSize = 30;
 	let ctx;
 	let delay = 100;
@@ -10,25 +10,63 @@ window.onload = function(){
 	let heightInBlocks = canvasHeight/blockSize;
 	let score;
 	let timeout;
-		
+	let buttonGame = document.getElementsByTagName('button')[0];
+	
 	init();
-
+	
+	buttonGame.onclick = function(){
+		if( buttonGame.textContent == 'Jouer' ){
+			start();
+		}
+		else {
+			restart();
+		}
+	}
+	
+	
 	function init(){
 	let canvas = document.createElement("canvas");
 	canvas.width = canvasWidth;
 	canvas.height = canvasHeight;
-	canvas.style.display = "block";
-	canvas.style.border = "10px solid";
-	canvas.style.margin = "20px auto";
-	canvas.style.backgroundColor = "#fff";
 	document.body.appendChild(canvas);
 	ctx = canvas.getContext("2d");
-	theSnake = new Snake([[6,4], [5,4], [4,4], [3,4], [2,4]], "right");
-	theApple = new Apple([10,10]);
+	ctx.font = "bold 30px sans-serif";
+	ctx.fillStyle = "#000";
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.strokeStyle = "#eee";
+	ctx.lineWidth = 5;
+	let centreX = canvasWidth / 2;
+	let centreY = canvasHeight / 2;
+	ctx.strokeText("Peut se jouer avec les touches directionnelles ou les boutons", centreX, centreY);
+	ctx.fillText("Peut se jouer avec les touches directionnelles ou les boutons", centreX, centreY);
+	let buttonUp = document.createElement("button");
+	buttonUp.id = 'arrowUp';
+	buttonUp.innerHTML = '&uarr;';
+	document.body.appendChild(buttonUp);
+	let div = document.createElement("div");
+	document.body.appendChild(div);
+	let buttonLeft = document.createElement("button");
+	buttonLeft.id = 'arrowLeft';
+	buttonLeft.innerHTML = '&larr;';
+	document.getElementsByTagName('div')[0].appendChild(buttonLeft);
+	let buttonDown = document.createElement("button");
+	buttonDown.id = 'arrowDown';
+	buttonDown.innerHTML = '&darr;';
+	document.getElementsByTagName('div')[0].appendChild(buttonDown);
+	let buttonRight = document.createElement("button");
+	buttonRight.id = 'arrowRight';
+	buttonRight.innerHTML = '&rarr;';
+	document.getElementsByTagName('div')[0].appendChild(buttonRight);
 	score = 0;
-	refreshCanvas();
+	drawScore();
 	}
 	
+	function start(){
+		theSnake = new Snake([[6,4], [5,4], [4,4], [3,4], [2,4]], "right");
+		theApple = new Apple([10,10]);
+		refreshCanvas();
+	}
 	
 	function refreshCanvas(){
 		theSnake.advance();
@@ -57,6 +95,7 @@ window.onload = function(){
 	
 	
 	function gameOver (){
+		buttonGame.textContent = 'Rejouer';
 		ctx.save();
 		ctx.font = "bold 70px sans-serif";
 		ctx.fillStyle = "#000";
@@ -69,8 +108,8 @@ window.onload = function(){
 		ctx.strokeText("Game Over", centreX, centreY);
 		ctx.fillText("Game Over", centreX, centreY);
 		ctx.font = "bold 30px sans-serif";
-		ctx.strokeText("Appuyez sur la touche Espace pour rejouer", centreX, centreY - 180);
-		ctx.fillText("Appuyez sur la touche Espace pour rejouer", centreX, centreY - 180);
+		ctx.strokeText("Appuyez sur la touche Espace ou le bouton 'Rejouer'", centreX, centreY - 100);
+		ctx.fillText("Appuyez sur la touche Espace ou le bouton 'Rejouer'", centreX, centreY - 100);
 		ctx.restore();
 	}
 	
@@ -85,15 +124,7 @@ window.onload = function(){
 	}
 	
 	function drawScore(){
-		ctx.save();
-		ctx.font = "bold 25px sans-serif";
-        ctx.fillStyle = "#999";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-		ctx.strokeStyle = "#000";
-		ctx.strokeText("Score : " + score.toString(), canvasWidth - 75, 25);
-        ctx.fillText("Score : " + score.toString(), canvasWidth - 75, 25);
-		ctx.restore();
+		document.getElementById('score').innerHTML = 'Score : ' + score;
 	}
 	
 	function drawBlock(ctx, position){
@@ -247,7 +278,28 @@ window.onload = function(){
 				return;
 		}
 		theSnake.setDirection(newDirection);
-	};
+	}
+	
+	let arrowUp = document.getElementById('arrowUp');
+	let arrowLeft = document.getElementById('arrowLeft');
+	let arrowDown = document.getElementById('arrowDown');
+	let arrowRight = document.getElementById('arrowRight');
+
+	arrowUp.onclick = function(){
+		theSnake.setDirection("up");
+	}
+
+	arrowLeft.onclick = function(){
+		theSnake.setDirection("left");
+	}
+
+	arrowDown.onclick = function(){
+		theSnake.setDirection("down");
+	}
+
+	arrowRight.onclick = function(){
+		theSnake.setDirection("right");
+	}
 	
 	
-};
+}
